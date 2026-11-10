@@ -19,7 +19,7 @@ namespace {
 
 void setupConsole() {
 #ifdef _WIN32
-    SetConsoleOutputCP(CP_UTF8);  // русский текст в консоли Windows
+    SetConsoleOutputCP(CP_UTF8);
 #endif
 }
 
@@ -68,8 +68,6 @@ void scenarioCreate() {
     }
 }
 
-// Сценарий 2: копирование станции, изменение копии,
-// проверка независимости оригинала
 void scenarioCopy() {
     printHeader("Сценарий 2: копирование станции (глубокая копия)");
 
@@ -81,7 +79,7 @@ void scenarioCopy() {
 
     std::cout << "Адрес первого модуля оригинала: " << address(*original.begin()) << "\n";
 
-    Station copy(original);  // копирующий конструктор: каждый модуль через clone()
+    Station copy(original);
     std::cout << "Адрес первого модуля копии:    " << address(*copy.begin())
               << " (объекты разные — копия глубокая)\n";
 
@@ -93,7 +91,6 @@ void scenarioCopy() {
 
     printStation(copy, "Копия после изменений");
 
-    // самоприсваивание не должно ничего сломать
     Station& sameStation = copy;
     copy = sameStation;
     std::cout << "Самоприсваивание прошло без ошибок (модулей: " << copy.size() << ")\n";
@@ -125,7 +122,7 @@ void scenarioMove() {
     std::cout << "До перемещения: модулей " << source.size()
               << ", адрес первого модуля " << before << "\n";
 
-    Station moved(std::move(source));  // перемещающий конструктор: вектор переезжает целиком
+    Station moved(std::move(source));
     std::cout << "После перемещения: модулей " << moved.size()
               << ", адрес первого модуля " << address(*moved.begin())
               << " (совпадает — копирования не было)\n";
@@ -133,7 +130,7 @@ void scenarioMove() {
               << " (станция пуста)\n";
 
     Station target(2);
-    target = std::move(moved);  // присваивание перемещением
+    target = std::move(moved);
     std::cout << "После присваивания перемещением: модулей " << target.size() << "\n";
     printStation(target, "Станция после двух перемещений");
 }
@@ -151,10 +148,10 @@ void scenarioStates() {
     std::unique_ptr<Module> reactor = advanced.createEnergyModule("Реактор");
     Module& solarRef = *solar;
     Module& reactorRef = *reactor;
-    station.addModule(std::move(solar));    // эффективность 60
-    station.addModule(std::move(reactor));  // эффективность 95
-    station.addModule(standard.createResidentialModule("Каюта экипажа"));   // эффективность 75
-    station.addModule(standard.createResearchModule("Биолаборатория"));     // эффективность 70
+    station.addModule(std::move(solar));
+    station.addModule(std::move(reactor));
+    station.addModule(standard.createResidentialModule("Каюта экипажа"));
+    station.addModule(standard.createResearchModule("Биолаборатория"));
 
     std::cout << "Включаем реактор:\n";
     std::cout << "  activate(): " << (reactorRef.activate() ? "успех" : "отказ") << "\n";
@@ -232,13 +229,12 @@ void scenarioRemove() {
     std::cout << "Итог: модулей " << station.size() << "/" << station.getMaxModules() << "\n";
 }
 
-}  // namespace
+}
 
 int main() {
     setupConsole();
 
     try {
-        // конструктор станции с нулевым лимитом должен отклоняться
         try {
             Station bad(0);
             std::cout << "Ошибка: Station(0) не выбросил исключение\n";

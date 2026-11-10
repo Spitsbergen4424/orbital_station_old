@@ -1,7 +1,7 @@
 #include "attributes/EnergyConsumption.h"
 
-EnergyConsumption::EnergyConsumption(): value_(0) {}            // потребление 0
-EnergyConsumption::EnergyConsumption(int value): value_(value) {}   // начальное потребление value
+EnergyConsumption::EnergyConsumption(): value_(0) {}
+EnergyConsumption::EnergyConsumption(int value): value_(value) {}
 
 int EnergyConsumption::getValue() const {
     return value_;

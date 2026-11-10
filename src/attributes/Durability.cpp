@@ -1,8 +1,8 @@
 #include "attributes/Durability.h"
 
 
-    Durability::Durability(): value_(DEFAULT_VALUE), maxValue_(DEFAULT_VALUE) {}            // прочность DEFAULT_VALUE
-    Durability::Durability(int value): value_(value), maxValue_(value) {}   // начальная прочность value, она же максимальная
+    Durability::Durability(): value_(DEFAULT_VALUE), maxValue_(DEFAULT_VALUE) {}
+    Durability::Durability(int value): value_(value), maxValue_(value) {}
 
     int Durability::getValue() const {
         return value_;

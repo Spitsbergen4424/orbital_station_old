@@ -1,21 +1,20 @@
 #pragma once
 
-// Прочность модуля
 class Durability {
 public:
-    static constexpr int DEFAULT_VALUE = 100;  // прочность по умолчанию
+    static constexpr int DEFAULT_VALUE = 100;
 
-    Durability();            // прочность DEFAULT_VALUE
-    Durability(int value);   // начальная прочность value, она же максимальная
+    Durability();
+    Durability(int value);
 
     int getValue() const;
     int getMaxValue() const;
 
-    void setValue(int newValue);  // значение от 0 до максимума
-    void decrease(int amount);    // уменьшить прочность (урон), не ниже 0
-    void repair(int amount);      // восстановить прочность, не выше максимума
+    void setValue(int newValue);
+    void decrease(int amount);
+    void repair(int amount);
 
 private:
-    int value_;     // текущая прочность
-    int maxValue_;  // максимальная прочность
+    int value_;
+    int maxValue_;
 };

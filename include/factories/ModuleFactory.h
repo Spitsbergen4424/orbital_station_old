@@ -5,8 +5,6 @@
 
 #include "modules/Module.h"
 
-// Абстрактная фабрика модулей: создаёт модули трёх категорий.
-// Код, который пользуется фабрикой, не знает, какие именно классы она создаёт.
 class ModuleFactory {
 public:
     virtual ~ModuleFactory() {}

@@ -102,12 +102,11 @@ int Station::indexOf(int id) const {
 
 bool Station::moveModule(std::size_t fromIndex, std::size_t toIndex) {
     if (fromIndex >= modules_.size() || toIndex >= modules_.size()) {
-        return false;  // индексы за пределами вектора
+        return false;
     }
     if (fromIndex == toIndex) {
-        return true;  // перемещать некуда
+        return true;
     }
-    // rotate сохраняет порядок остальных модулей: модуль "вставляется" на новое место
     auto first = modules_.begin();
     auto from = static_cast<std::ptrdiff_t>(fromIndex);
     auto to = static_cast<std::ptrdiff_t>(toIndex);
@@ -119,7 +118,6 @@ bool Station::moveModule(std::size_t fromIndex, std::size_t toIndex) {
     return true;
 }
 
-// Сортировка по убыванию эффективности с использованием итератора (сортировка выбором)
 void Station::sortByEfficiency() {
     for (StationIterator current = begin(); current != end(); ++current) {
         StationIterator best = current;

@@ -8,9 +8,8 @@
 #include "attributes/Durability.h"
 #include "attributes/EnergyConsumption.h"
 
-class Station;  // объявление станции: полное описание понадобится только в Module.cpp
+class Station; 
 
-// Состояния модуля
 enum class ModuleState {
     Off,        // выключен
     On,         // включён
@@ -18,7 +17,6 @@ enum class ModuleState {
     Emergency   // авария
 };
 
-// Абстрактный базовый класс модуля станции
 class Module {
 public:
     static constexpr int MIN_EFFICIENCY = 0;
@@ -28,33 +26,32 @@ public:
            int capacity, int efficiency);
     virtual ~Module() {}
 
-    // Чисто виртуальные методы: их реализуют наследники
-    virtual std::unique_ptr<Module> clone() const = 0;  // копия модуля
-    virtual std::string getType() const = 0;            // "CrewCabin", "SolarModule", ...
+    virtual std::unique_ptr<Module> clone() const = 0;
+    virtual std::string getType() const = 0;
 
     int getId() const;
     const std::string& getName() const;
     int getEfficiency() const;
     ModuleState getState() const;
-    std::string getStateName() const;  // "выключен", "включён", "ремонт", "авария"
+    std::string getStateName() const;
     const Durability& getDurability() const;
     const EnergyConsumption& getEnergyConsumption() const;
     const Capacity& getCapacity() const;
 
     void setName(const std::string& name);
-    void setEfficiency(int efficiency);  // от 0 до 100
+    void setEfficiency(int efficiency);
 
-    bool activate();                      // включить; false, если модуль в аварии или сломан
-    void deactivate();                    // выключить
-    void setState(ModuleState newState);  // задать состояние
-    void damage(int amount);              // урон; при прочности 0 модуль в аварии
-    void repair(int amount);              // ремонт; из аварии модуль переходит в "ремонт"
-    void moveToIndex(Station& station, std::size_t newIndex);  // переставить модуль на станции
+    bool activate();
+    void deactivate();
+    void setState(ModuleState newState);
+    void damage(int amount);
+    void repair(int amount);
+    void moveToIndex(Station& station, std::size_t newIndex);
 
     void print() const;
 
 private:
-    static int nextId_;  // id для следующего созданного модуля
+    static int nextId_;
 
     int id_;
     std::string name_;
