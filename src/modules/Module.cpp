@@ -20,6 +20,16 @@ Module::Module(const std::string& name, int durability, int energyConsumption,
     setEfficiency(efficiency);
 }
 
+void Module::applyEnergyConsumptionModifier(double modifier) {
+    if (modifier < 0.0) return;
+    const int modified = static_cast<int>(baseEnergyConsumption_ * modifier + 0.5);
+    energyConsumption_.setValue(modified);
+}
+
+void Module::resetEnergyConsumption() noexcept {
+    energyConsumption_.setValue(baseEnergyConsumption_);
+}
+
 int Module::getId() const {
     return id_;
 }

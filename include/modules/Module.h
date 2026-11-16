@@ -23,11 +23,14 @@ public:
     static constexpr int MAX_EFFICIENCY = 100;
 
     Module(const std::string& name, int durability, int energyConsumption,
-           int capacity, int efficiency);
+        int capacity, int efficiency): baseEnergyConsumption_(energyConsumption) {};
     virtual ~Module() {}
 
     virtual std::unique_ptr<Module> clone() const = 0;
     virtual std::string getType() const = 0;
+
+    void applyEnergyConsumptionModifier(double modifier);
+    void resetEnergyConsumption() noexcept;
 
     int getId() const;
     const std::string& getName() const;
@@ -60,4 +63,5 @@ private:
     Durability durability_;
     EnergyConsumption energyConsumption_;
     Capacity capacity_;
+    int baseEnergyConsumption_;
 };
